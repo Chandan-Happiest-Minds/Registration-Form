@@ -152,4 +152,9 @@ export default class RegistrationForm extends LightningElement {
     deleteRegistration(registrationId) {
         this.registrations = this.registrations.filter(registration => registration.id !== registrationId)
     }
+
+    handleDelete(event){
+        let registrationId = event.target.dataset.id
+        this.deleteRegistration(registrationId)
+    }
 }

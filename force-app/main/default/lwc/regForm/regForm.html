@@ -55,6 +55,7 @@
                         <th scope="col">Country</th>
                         <th scope="col">Phone</th>
                         <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,8 +66,11 @@
                             <td data-label="Email">{registration.email}</td>
                             <td data-label="Country">{registration.country}</td>
                             <td data-label="Phone">{registration.phoneCode} {registration.phone}</td>
-                            <td data-label="">
+                            <td data-label="Edit">
                                 <button onclick={handleEditClick} data-id={registration.id}>Edit</button>
+                            </td>
+                            <td data-label="Delete">
+                                <button class="delete-button" onclick={handleDelete} data-id={registration.id}>Delete</button>
                             </td>
                         </tr>
                     </template>

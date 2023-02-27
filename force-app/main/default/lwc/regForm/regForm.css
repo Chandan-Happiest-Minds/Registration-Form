@@ -17,7 +17,9 @@ h1 {
     text-align: center;
 }
 
-input, option, select {
+input,
+option,
+select {
     margin: 0.25em 0em 1em 0em;
     outline: none;
     padding: 0.5em;
@@ -44,18 +46,25 @@ button:hover {
 tbody {
     background: lavender;
 }
- 
- 
-table, td, th {
+
+
+table,
+td,
+th {
     border-collapse: collapse;
 }
- 
-th, td {
+
+th,
+td {
     padding: 10px;
     border: 1px solid #777;
     text-align: center;
 }
- 
-.error-message{
+
+.error-message {
     color: red;
+}
+
+.delete-button {
+    background-color: red;
 }
