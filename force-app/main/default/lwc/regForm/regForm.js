@@ -12,6 +12,10 @@ export default class RegistrationForm extends LightningElement {
     registrations = []
 
     firstNameError = ''
+    lastNameError = ''
+    emailError = ''
+    countryError = ''
+    phoneError = ''
 
 
     handleFirstNameChange(event) {
@@ -68,6 +72,39 @@ export default class RegistrationForm extends LightningElement {
         else{
             this.firstNameError = ''
         }
+
+        if (this.lastName.length == 0) {
+            this.lastNameError = 'Please enter a last name';
+            registrations = false
+        }
+        else{
+            this.lastNameError = ''
+        }
+
+        if (this.email.length == 0) {
+            this.emailError = 'Please enter an email';
+            registrations = false
+        }
+        else{
+            this.emailError = ''
+        }
+
+        if (!this.country) {
+            this.countryError = 'Please select a country';
+            registrations = false
+        }
+        else{
+            this.countryError = ''
+        }
+
+
+        if (this.phone.length == 0) {
+            this.phoneError = 'Please enter a phone number';
+            phoneError = false
+        }
+        else{
+            this.phoneError = ''
+        }
         
 
         this.phoneCode = this.getPhoneCode(this.country)
@@ -95,22 +132,22 @@ export default class RegistrationForm extends LightningElement {
         this.showOtherCountry = false
     }
 
-    // handleEditClick(event) {
-    //     let registrationId = event.target.dataset.id
-    //     let registration = this.registrations.find(registration => registration.id === registrationId)
-    //     this.firstName = registration.firstName
-    //     this.lastName = registration.lastName
-    //     this.email = registration.email
-    //     this.country = registration.country
-    //     this.phone = registration.phone.slice(2)
-    //     if (this.country === 'Other') {
-    //         this.showOtherCountry = true
-    //         this.otherCountry = registration.country
-    //     } else {
-    //         this.showOtherCountry = false
-    //     }
-    //     this.deleteRegistration(registrationId)
-    // }
+    handleEditClick(event) {
+        let registrationId = event.target.dataset.id
+        let registration = this.registrations.find(registration => registration.id === registrationId)
+        this.firstName = registration.firstName
+        this.lastName = registration.lastName
+        this.email = registration.email
+        this.country = registration.country
+        this.phone = registration.phone.slice(2)
+        if (this.country === 'Other') {
+            this.showOtherCountry = true
+            this.otherCountry = registration.country
+        } else {
+            this.showOtherCountry = false
+        }
+        this.deleteRegistration(registrationId)
+    }
 
     deleteRegistration(registrationId) {
         this.registrations = this.registrations.filter(registration => registration.id !== registrationId)

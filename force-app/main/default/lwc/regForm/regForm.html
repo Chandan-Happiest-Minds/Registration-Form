@@ -1,39 +1,44 @@
 <template>
     <form>
         <div class="container">
-                <h1><b>Registration Form</b></h1>
+            <h1><b>Registration Form</b></h1>
 
-                <label><b>First Name</b></label>
-                <input type="text" value={firstName} oninput={handleFirstNameChange} placeholder="First Name" required/>
-                <span class="error-message">{firstNameError}</span>
+            <label><b>First Name</b></label>
+            <input type="text" value={firstName} oninput={handleFirstNameChange} placeholder="First Name" required />
+            <span class="error-message">{firstNameError}</span>
 
-                <label><b>Last Name</b></label>
-                <input type="text" value={lastName} oninput={handleLastNameChange} placeholder="Last Name" required/>
+            <label><b>Last Name</b></label>
+            <input type="text" value={lastName} oninput={handleLastNameChange} placeholder="Last Name" required />
+            <span class="error-message">{lastNameError}</span>
 
-                <label><b>Email</b></label>
-                <input type="email" value={email} oninput={handleEmailChange} placeholder="Email" required/>
+            <label><b>Email</b></label>
+            <input type="email" value={email} oninput={handleEmailChange} placeholder="Email" required />
+            <span class="error-message">{emailError}</span>
 
-                <label><b>Country</b></label>
-                <select value={country} onchange={handleCountryChange} required>
-                    <option value="">-- Select --</option>
-                    <option value="India">India</option>
-                    <option value="Australia">Australia</option>
-                    <option value="New Zealand">New Zealand</option>
-                    <option value="England">England</option>
-                    <option value="Other">Other</option>
-                </select>
+            <label><b>Country</b></label>
+            <select id="country" name="country" onchange={handleCountryChange} required>
+    
+                <option value="">-- Select --</option>
+                <option value="India">India</option>
+                <option value="Australia">Australia</option>
+                <option value="New Zealand">New Zealand</option>
+                <option value="England">England</option>
+                <option value="Other">Other</option>
+            </select>
+            <span class="error-message">{countryError}</span>
 
-                <template if:true={showOtherCountry}>
+            <template if:true={showOtherCountry}>
+                <label><b>Please enter the country name</b></label>
+                <input type="text" value={otherCountry} oninput={handleOtherCountryChange} placeholder="Country"
+                    required />
+                    <span class="error-message">{countryError}</span>
+            </template>
 
-                    <label><b>Please enter the country name</b></label>
-                    <input type="text" value={otherCountry} oninput={handleOtherCountryChange} placeholder="Country" required/>
+            <label><b>Phone</b></label>
+            <input type="tel" value={phone} oninput={handlePhoneChange} placeholder="Phone" required />
+            <span class="error-message">{phoneError}</span>
 
-                </template>
-
-                <label><b>Phone</b></label>
-                <input type="tel" value={phone} oninput={handlePhoneChange} placeholder="Phone" required/>
-
-                <button type="Submit" onclick={handleSubmit}><b>Submit</b></button>
+            <button type="Submit" onclick={handleSubmit}><b>Submit</b></button>
         </div>
     </form>
 
@@ -43,7 +48,7 @@
         <template if:true={registrations.length}>
             <table>
                 <thead>
-                    <tr class="">
+                    <tr>
                         <th scope="col">First Name</th>
                         <th scope="col">Last Name</th>
                         <th scope="col">Email</th>
@@ -67,16 +72,6 @@
                     </template>
                 </tbody>
             </table>
-        </template>
-        <template if:true={showError}>
-            <div class="slds-notify_container slds-m-top_medium">
-                <div class="slds-notify slds-notify_toast slds-theme_error" role="alert">
-                    <span class="slds-assistive-text">Error</span>
-                    <div class="slds-notify__content">
-                        <h2 class="slds-text-heading_small">Please fill all the required fields</h2>
-                    </div>
-                </div>
-            </div>
         </template>
     </div>
 </template>

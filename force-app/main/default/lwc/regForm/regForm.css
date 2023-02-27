@@ -8,6 +8,9 @@ form {
     display: flex;
     flex-direction: column;
     width: 25vw;
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 10px;
 }
 
 h1 {
