@@ -1,0 +1,58 @@
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 25vw;
+}
+
+h1 {
+    text-align: center;
+}
+
+input, option, select {
+    margin: 0.25em 0em 1em 0em;
+    outline: none;
+    padding: 0.5em;
+    border: none;
+    background-color: rgb(225, 225, 225);
+    border-radius: 0.25em;
+    color: black;
+}
+
+button {
+    padding: 0.75em;
+    border: none;
+    outline: none;
+    background-color: rgb(68, 18, 232);
+    color: white;
+    border-radius: 0.25em;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: rgb(41, 4, 164);
+}
+
+tbody {
+    background: lavender;
+}
+ 
+ 
+table, td, th {
+    border-collapse: collapse;
+}
+ 
+th, td {
+    padding: 10px;
+    border: 1px solid #777;
+    text-align: center;
+}
+ 
+.error-message{
+    color: red;
+}

@@ -1,0 +1,82 @@
+<template>
+    <form>
+        <div class="container">
+                <h1><b>Registration Form</b></h1>
+
+                <label><b>First Name</b></label>
+                <input type="text" value={firstName} oninput={handleFirstNameChange} placeholder="First Name" required/>
+                <span class="error-message">{firstNameError}</span>
+
+                <label><b>Last Name</b></label>
+                <input type="text" value={lastName} oninput={handleLastNameChange} placeholder="Last Name" required/>
+
+                <label><b>Email</b></label>
+                <input type="email" value={email} oninput={handleEmailChange} placeholder="Email" required/>
+
+                <label><b>Country</b></label>
+                <select value={country} onchange={handleCountryChange} required>
+                    <option value="">-- Select --</option>
+                    <option value="India">India</option>
+                    <option value="Australia">Australia</option>
+                    <option value="New Zealand">New Zealand</option>
+                    <option value="England">England</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <template if:true={showOtherCountry}>
+
+                    <label><b>Please enter the country name</b></label>
+                    <input type="text" value={otherCountry} oninput={handleOtherCountryChange} placeholder="Country" required/>
+
+                </template>
+
+                <label><b>Phone</b></label>
+                <input type="tel" value={phone} oninput={handlePhoneChange} placeholder="Phone" required/>
+
+                <button type="Submit" onclick={handleSubmit}><b>Submit</b></button>
+        </div>
+    </form>
+
+    <br>
+
+    <div>
+        <template if:true={registrations.length}>
+            <table>
+                <thead>
+                    <tr class="">
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={registrations} for:item="registration">
+                        <tr key={registration.id}>
+                            <td data-label="First Name">{registration.firstName}</td>
+                            <td data-label="Last Name">{registration.lastName}</td>
+                            <td data-label="Email">{registration.email}</td>
+                            <td data-label="Country">{registration.country}</td>
+                            <td data-label="Phone">{registration.phoneCode} {registration.phone}</td>
+                            <td data-label="">
+                                <button onclick={handleEditClick} data-id={registration.id}>Edit</button>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </template>
+        <template if:true={showError}>
+            <div class="slds-notify_container slds-m-top_medium">
+                <div class="slds-notify slds-notify_toast slds-theme_error" role="alert">
+                    <span class="slds-assistive-text">Error</span>
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading_small">Please fill all the required fields</h2>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>
