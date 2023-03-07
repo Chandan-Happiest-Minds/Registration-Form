@@ -1,6 +1,11 @@
 import { LightningElement } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import saveRegistration from '@salesforce/apex/RegistrationController.saveRegistration';
+import updateRegistration from '@salesforce/apex/RegistrationController.updateRegistration';
+import deleteRegistrations from '@salesforce/apex/RegistrationController.deleteRegistrations';
 
 export default class RegistrationForm extends LightningElement {
+
     firstName = ''
     lastName = ''
     email = ''
@@ -10,13 +15,11 @@ export default class RegistrationForm extends LightningElement {
     phoneCode = ''
     showOtherCountry = false
     registrations = []
-
     firstNameError = ''
     lastNameError = ''
     emailError = ''
     countryError = ''
     phoneError = ''
-
 
     handleFirstNameChange(event) {
         this.firstName = event.target.value
@@ -61,10 +64,10 @@ export default class RegistrationForm extends LightningElement {
         }
     }
 
-    handleSubmit() {
- 
-        event.preventDefault()
+    /* SUBMIT FUNCTION */
 
+    handleSubmit(event) {
+ 
         if (this.firstName.length == 0) {
             this.firstNameError = 'Please enter a first name';
             registrations = false
@@ -106,6 +109,28 @@ export default class RegistrationForm extends LightningElement {
             this.phoneError = ''
         }
         
+        event.preventDefault();
+
+      saveRegistration({firstName: this.firstName, lastName: this.lastName, email: this.email,
+         country: this.country, phone: this.phone})
+        .then(result => {
+            this.registrationId = result;
+            //5678
+            console.log(result);
+            this.dispatchEvent(
+                new CustomEvent('registrationsaved')
+            );
+        })
+        .catch(error => {
+            console.error(error);
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error',
+                    message: error.body.message,
+                    variant: 'error'
+                })
+            );
+        });
 
         this.phoneCode = this.getPhoneCode(this.country)
         let registration = {
@@ -118,9 +143,9 @@ export default class RegistrationForm extends LightningElement {
             phoneCode: this.phoneCode
         };
         this.registrations.push(registration)
-        this.clearForm()
+        this.clearForm();
     }
-
+      
     clearForm() {
         this.firstName = ''
         this.lastName = ''
@@ -132,7 +157,28 @@ export default class RegistrationForm extends LightningElement {
         this.showOtherCountry = false
     }
 
+     /* EDIT FUNCTION */
+
     handleEditClick(event) {
+        
+        updateRegistration({registrationId: this.registrationId, firstName: this.firstName, lastName: this.lastName, email: this.email, country: this.country, phone: this.phone})
+        .then(result => {
+            console.log(result);
+            this.dispatchEvent(
+                new CustomEvent('registration updated')
+            );
+        })
+        .catch(error => {
+            console.error(error);
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error',
+                    message: error.body.message,
+                    variant: 'error'
+                })
+            );
+        });
+
         let registrationId = event.target.dataset.id
         let registration = this.registrations.find(registration => registration.id === registrationId)
         this.firstName = registration.firstName
@@ -149,11 +195,31 @@ export default class RegistrationForm extends LightningElement {
         this.deleteRegistration(registrationId)
     }
 
+     /* DELETE FUNCTION */
+
     deleteRegistration(registrationId) {
         this.registrations = this.registrations.filter(registration => registration.id !== registrationId)
     }
 
     handleDelete(event){
+        deleteRegistrations({registrationId: this.registrationId})
+        .then(result => {
+            console.log(result);
+            this.dispatchEvent(
+                new CustomEvent('registration deleted')
+            );
+        })
+        .catch(error => {
+            console.error(error);
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error',
+                    message: error.body.message,
+                    variant: 'error'
+                })
+            );
+        });
+
         let registrationId = event.target.dataset.id
         this.deleteRegistration(registrationId)
     }

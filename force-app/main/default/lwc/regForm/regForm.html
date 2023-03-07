@@ -17,7 +17,7 @@
 
             <label><b>Country</b></label>
             <select id="country" name="country" onchange={handleCountryChange} required>
-    
+
                 <option value="">-- Select --</option>
                 <option value="India">India</option>
                 <option value="Australia">Australia</option>
@@ -31,15 +31,15 @@
                 <label><b>Please enter the country name</b></label>
                 <input type="text" value={otherCountry} oninput={handleOtherCountryChange} placeholder="Country"
                     required />
-                    <span class="error-message">{countryError}</span>
+                <span class="error-message">{countryError}</span>
             </template>
 
             <label><b>Phone</b></label>
             <input type="tel" value={phone} oninput={handlePhoneChange} placeholder="Phone" required />
             <span class="error-message">{phoneError}</span>
-
-            <button type="Submit" onclick={handleSubmit}><b>Submit</b></button>
         </div>
+        <button type="Submit" onclick={handleSubmit}><b>Submit</b></button>
+
     </form>
 
     <br>
@@ -70,7 +70,8 @@
                                 <button onclick={handleEditClick} data-id={registration.id}>Edit</button>
                             </td>
                             <td data-label="Delete">
-                                <button class="delete-button" onclick={handleDelete} data-id={registration.id}>Delete</button>
+                                <button class="delete-button" onclick={handleDelete}
+                                    data-id={registration.id}>Delete</button>
                             </td>
                         </tr>
                     </template>
